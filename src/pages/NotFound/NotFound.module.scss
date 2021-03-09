@@ -1,0 +1,17 @@
+@import '../../assets/styles/templates.scss';
+
+.flex {
+  @extend %flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.title {
+  font: 600 3rem/1.25 Arial, sans-serif;
+}
+
+.subtitle {
+  font: 400 1rem/1.25 Arial, sans-serif;
+}
