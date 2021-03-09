@@ -1,6 +1,10 @@
 body {
-  font: 400 1rem/1.25 'Kalam', sans-serif;
+  font: 400 1rem/1.25 'Exo', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -1,3 +1,46 @@
+@import '../../assets/styles/templates.scss';
+
+.page {
+  @extend %flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #efefef;
+}
+
+.header {
+  background-color: #dfdfdf;
+  padding: 30px 20px;
+  text-align: center;
+  .title {
+    font: 300 1.5rem/1.25 'Exo', sans-serif;
+    color: #333333;
+  }
+  .subtitle {
+    font: 300 1.15rem/1.25 'Exo', sans-serif;
+  }
+}
+
+.container {
+  @extend %container;
+  flex-grow: 1;
+}
+
+.content {
+  flex-grow: 1;
+  @extend %flex;
+}
+
+.footer {
+  background-color: #333333;
+}
+
+.copyright {
+  font: 400 1rem/1.25 'Exo', sans-serif;
+  padding: 30px;
+  color: white;
+  text-align: center;
+}
+
 .title {
   font-size: 2rem;
 }
