@@ -1,0 +1,47 @@
+{
+  "version": "3",
+  "result": {
+    "tasks": [
+      {
+        "id": "1615453758937",
+        "column": "1615453730866",
+        "status": "active",
+        "title": "Do morning excercises"
+      },
+      {
+        "id": "1615453758947",
+        "column": "1615453730866",
+        "status": "active",
+        "title": "Drink water with lemon"
+      },
+      {
+        "id": "1615453758967",
+        "column": "1615453730866",
+        "status": "active",
+        "title": "Learn JS"
+      },
+      {
+        "id": "1615453758999",
+        "column": "1615453730866",
+        "status": "active",
+        "title": "Learn React"
+      },
+      {
+        "id": "1615453759937",
+        "column": "1615453743173",
+        "status": "active",
+        "title": "Go to shop"
+      }
+    ],
+    "columns": [
+      {
+        "id": "1615453730866",
+        "title": "Very main important tasks!!!"
+      },
+      {
+        "id": "1615453743173",
+        "title": "Not important tasks"
+      }
+    ]
+  }
+}
