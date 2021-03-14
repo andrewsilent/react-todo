@@ -1,60 +1,101 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import styles from './Taskboard.module.scss';
 import { appReducer as reducer } from '../../appReducer.js';
+import { AppContext } from '../../contexts';
+import response from '../../response/response.json';
+import Column from '../Column';
+import EditForm from '../Column/EditForm';
 
 const Taskboard = props => {
-  const [state, dispatch] = useReducer(reducer, {
-    id: Date.now(),
-    column: 0,
-    status: 'active',
-    title: '',
-  });
+  const { results } = response;
+  const [isEdit, setIsEdit] = useState(false);
+  const [state, dispatch] = useReducer(reducer, { data: results });
 
-  const addColumn = () => {
+  const addColumn = params => {
     dispatch({
       type: 'ADD_COLUMN',
-      title: 'title of new column',
-      columnID: state.column + 1,
+      ...params,
     });
   };
 
-  const addTask = () => {
+  const editColumn = params => {
+    dispatch({
+      type: 'EDIT_COLUMN',
+      ...params,
+    });
+  };
+
+  const removeColumn = params => {
+    dispatch({
+      type: 'REMOVE_COLUMN',
+      ...params,
+    });
+  };
+
+  const addTask = params => {
     dispatch({
       type: 'ADD_TASK',
-      title: 'title of task',
-      id: Date.now(),
+      status: 'ACTIVE',
+      ...params,
+    });
+  };
+
+  const editTask = params => {
+    dispatch({
+      type: 'EDIT_TASK',
+      status: 'EDIT',
+      ...params,
+    });
+  };
+
+  const completeTask = params => {
+    dispatch({
+      type: 'COMPLETE_TASK',
+      ...params,
+    });
+  };
+
+  const removeTask = params => {
+    dispatch({
+      type: 'REMOVE_TASK',
+      ...params,
     });
   };
 
   return (
-    <section className={styles.taskboard}>
-      <div className={styles.column}>
-        <h3 className={styles.cardTitle}>Very main important tasks!!!</h3>
-        <div className={styles.task}>
-          <h4 className={styles.taskTitle}>Do morning excercises</h4>
+    <AppContext.Provider
+      value={{
+        state,
+        addColumn,
+        editColumn,
+        removeColumn,
+        addTask,
+        editTask,
+        completeTask,
+        removeTask,
+      }}
+    >
+      <section className={styles.taskboard}>
+        {state.data.map(column => (
+          <Column key={column.id} element={column} />
+        ))}
+
+        <div className={styles.column}>
+          {isEdit ? (
+            <EditForm
+              action={addColumn}
+              type='ADD_COLUMN'
+              edit={() => setIsEdit(!isEdit)}
+              placeholder='Enter a new column title'
+            />
+          ) : (
+            <h3 className={styles.addColumn} onClick={() => setIsEdit(!isEdit)}>
+              Add a column
+            </h3>
+          )}
         </div>
-        <div className={styles.task}>
-          <h4 className={styles.taskTitle}>Drink water with lemon</h4>
-        </div>
-        <p className={styles.addTask} onClick={addTask}>
-          Add one more task
-        </p>
-      </div>
-      <div className={styles.column}>
-        <h3 className={styles.cardTitle}>Not important tasks</h3>
-        <div className={styles.task}>
-          <h4 className={styles.taskTitle}>Some Task</h4>
-        </div>
-        <p className={styles.addTask} onClick={addTask}>
-          Add one more task
-        </p>
-      </div>
-      <div className={styles.column}>
-        <h3 className={styles.cardTitleTpl} onClick={addColumn}>
-          Add a column
-        </h3>
-      </div>
-    </section>
+      </section>
+    </AppContext.Provider>
   );
 };
 

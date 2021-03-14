@@ -1,0 +1,82 @@
+.wrapper {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.input {
+  font: 400 1.05rem/1.25 'Exo', sans-serif;
+  border: none;
+  outline: none;
+  width: 100%;
+  resize: none;
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #cccccc;
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #999;
+  }
+}
+
+.addTask {
+  margin-bottom: 10px;
+}
+
+.formControls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.submit {
+  font: 400 1.05rem/1.25 'Exo', sans-serif;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  
+}
+
+.reset {
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  opacity: 0.9;
+  &::before,
+  &::after {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 2px;
+    width: 16px;
+    border-radius: 2px;
+    opacity: 0.75;
+    background-color: #333;
+    transition: opacity 0.25s ease 0.25s;
+  }
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    transition: opacity 0.25s ease 0s;
+  }
+}

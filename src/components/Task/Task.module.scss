@@ -1,0 +1,54 @@
+.task {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.task + .task {
+  margin-top: 10px;
+}
+
+.taskTitle {
+  font: 400 1.05rem/1.25 'Kalam', sans-serif;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+}
+
+.complete,
+.remove {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease 0.25s;
+}
+
+.complete {
+  right: 30px;
+  background-color: yellowgreen;
+}
+
+.remove {
+  right: 10px;
+  background-color: tomato;
+}
+
+.task:hover .complete,
+.task:hover .remove,
+.task:focus .complete,
+.task:focus .remove,
+.complete:focus,
+.remove:focus {
+  transition: all 0.25s ease 0s;
+  visibility: visible;
+  opacity: 1;
+}

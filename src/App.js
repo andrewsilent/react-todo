@@ -5,10 +5,9 @@ import NotFound from './pages/NotFound';
 const App = props => {
   return (
     <BrowserRouter>
-
       <Switch>
-        <Route exact path='/' component={HomePage}/>
-        <Route path='/*' component={NotFound}/>
+        <Route exact path='/' component={HomePage} />
+        <Route path='/*' component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
