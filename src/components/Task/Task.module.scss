@@ -19,6 +19,10 @@
   cursor: pointer;
 }
 
+.taskTitle.done {
+  text-decoration: line-through;
+}
+
 .complete,
 .remove {
   cursor: pointer;
@@ -43,11 +47,12 @@
 }
 
 .task:hover .complete,
-.task:hover .remove,
-.task:focus .complete,
-.task:focus .remove,
-.complete:focus,
-.remove:focus {
+.task:hover .remove
+// .task:focus .complete,
+// .task:focus .remove,
+// .complete:focus,
+// .remove:focus 
+{
   transition: all 0.25s ease 0s;
   visibility: visible;
   opacity: 1;

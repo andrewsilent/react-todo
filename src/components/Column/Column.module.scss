@@ -2,7 +2,7 @@
   background-color: yellowgreen;
   flex-grow: 1;
   max-width: 290px;
-  min-width: 275px;
+  min-width: 290px;
   margin: 5px;
   border-radius: 5px;
   padding: 0 10px;
@@ -46,6 +46,38 @@
       }
       &::after {
         transform: translate(-6px, -50%);
+      }
+    }
+  }
+  .menu {
+    position: absolute;
+    transform: translate(-101%, 10%);
+    padding: 10px;
+    left: 100%;
+    top: 100%;
+    background-color: white;
+    z-index: 100;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    .title {
+      font: 400 0.95rem/1.25 'Exo', sans-serif;
+      padding: 10px;
+      color: #555;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .button {
+      font: 400 0.95rem/1.25 'Exo', sans-serif;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      text-align: left;
+      white-space: nowrap;
+      background-color: white;
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.05);
       }
     }
   }

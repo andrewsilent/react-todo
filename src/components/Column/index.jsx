@@ -7,9 +7,10 @@ import EditForm from './EditForm';
 const Column = props => {
   const { id, title, tasks } = props.element;
   const [isEdit, setIsEdit] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAddTask, setIsAddTask] = useState(false);
   const { addTask, editColumn, removeColumn } = useContext(AppContext);
-  
+
   return (
     <div className={styles.column}>
       {isEdit ? (
@@ -26,10 +27,22 @@ const Column = props => {
           </h3>
           <button
             className={styles.options}
-            onClick={() => removeColumn({ id: id })}
+            title='Options'
+            onClick={()=> setIsMenuOpen(!isMenuOpen)}
+            onBlur={()=> setTimeout(()=> setIsMenuOpen(!isMenuOpen), 250)}
           >
             <span className={styles.circle}></span>
           </button>
+          {isMenuOpen ? (
+            <div className={styles.menu}>
+              <h4 className={styles.title}>Actions with column</h4>
+              <ul>
+                <li>
+                  <button className={styles.button} onClick={() => removeColumn({ id: id })}>Delete column</button>
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </div>
       )}
       {tasks.map(task => (

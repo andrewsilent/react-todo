@@ -22,11 +22,14 @@ const handlers = {
   },
 
   REMOVE_COLUMN: (state, action) => {
-    // console.log('remove column');
-    return { ...state };
+    const newState = state;
+    const columnToDelete = newState.data.findIndex(
+      column => column.id === action.id
+    );
+    newState.data.splice(columnToDelete, 1);
+    return { ...newState };
   },
   ADD_TASK: (state, action) => {
-    console.log('action', action);
     const newState = state;
     const newTaskID = String(Date.now());
     newState.data
@@ -43,9 +46,7 @@ const handlers = {
   },
   EDIT_TASK: (state, action) => {
     const newState = state;
-    const columnToChange = newState.data.findIndex(
-      column => column.id === action.column
-    ); // index of column
+    const columnToChange = newState.data.findIndex(column => column.id === action.column); // index of column
     const column = { ...newState.data[columnToChange] }; // the column
     const taskToChange = column.tasks.findIndex(task => task.id === action.id); // index of task
     const task = { ...column.tasks[taskToChange] }; // the task
@@ -57,11 +58,26 @@ const handlers = {
   },
   COMPLETE_TASK: (state, action) => {
     console.log('complete task');
-    return { ...state };
+    const newState = state;
+    const columnToChange = newState.data.findIndex(column => column.id === action.column); // index of column
+    const column = { ...newState.data[columnToChange] }; // the column
+    const taskToChange = column.tasks.findIndex(task => task.id === action.id); // index of task
+    const task = { ...column.tasks[taskToChange] }; // the task
+    const newTask = { ...task, status: 'done' }; // new task - old task with modified text
+    column.tasks.splice(taskToChange, 1, newTask);
+    const newColumn = { ...newState.data[columnToChange], tasks: column.tasks }; // new column - old column with modified tasks array
+    newState.data.splice(columnToChange, 1, newColumn);
+    return { ...newState };
   },
   REMOVE_TASK: (state, action) => {
     console.log('remove task');
-    return { ...state };
+    const newState = state;
+    const columnToChange = newState.data.findIndex(column => column.id === action.column); // index of column
+    const column = { ...newState.data[columnToChange] }; // the column
+    const newTasks = column.tasks.filter(task => task.id !== action.id)
+    const newColumn = { ...newState.data[columnToChange], tasks: newTasks }; // new column - old column with modified tasks array
+    newState.data.splice(columnToChange, 1, newColumn);
+    return { ...newState };
   },
 };
 
