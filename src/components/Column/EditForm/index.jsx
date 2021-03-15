@@ -1,74 +1,60 @@
-import React from 'react';
-import { Field, Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { INPUT_SCHEMA } from '../../../utils/validation';
 import styles from './EditForm.module.scss';
+import cx from 'classnames';
 
 const EditForm = props => {
   const { action, placeholder, type, edit, element, column } = props;
+  const [timerID, setTimerID] = useState();
 
-  const getInitialValues = () => {
-    switch (type) {
-      case 'EDIT_TASK':
-        return {
-          id: element.id,
-          column: element.column,
-          status: element.status,
-          body: element.title,
+  const onFocus = () => {
+    setTimeout(() => clearTimeout(timerID), 0);
         };
-      case 'EDIT_COLUMN':
-        return {
-          id: element.id,
-          body: element.title,
-          tasks: element.tasks,
-        };
-      case 'ADD_TASK':
-        return {
-          id: '',
-          column: column,
-          status: '',
-          body: '',
-        };
-      case 'ADD_COLUMN':
-        return {
-          id: '',
-          body: '',
-          tasks: [],
-        };
-      default:
-        return;
-    }
-  };
 
-  const onFocus = e => (e.target.selectionStart = e.target.value.length);
+  const onBlur = () => {
+    const timer = setTimeout(edit, 250);
+    return setTimerID(() => timer);
+        };
+
+  const classNames = (errors, touched) =>
+    cx(styles.input, { [styles.invalid]: errors.body && touched.body });
+
+  // const onFocus = e => (e.target.selectionStart = e.target.value.length);
 
   return (
     <Formik
-      initialValues={getInitialValues()}
+      validationSchema={INPUT_SCHEMA}
       onSubmit={(values, { resetForm }) => {
         action(values);
         edit();
         resetForm();
       }}
     >
+      {({ errors, touched }) => (
       <Form className={styles.addTask}>
         <div className={styles.wrapper}>
           <Field
+              autoFocus
             onFocus={onFocus}
-            onBlur={() => setTimeout(edit, 250)} // it is not a good solution
-            autoFocus
+              onBlur={onBlur}
             as='textarea'
             name='body'
             placeholder={placeholder}
-            className={styles.input}
+              className={classNames(errors, touched)}
             rows='3'
           ></Field>
+            <ErrorMessage name='body' component='div' className={styles.errorMessage}
+            />
         </div>
         <div className={styles.formControls}>
-          <button type='submit' className={styles.submit}>
+            <button type='submit' className={styles.submit} onFocus={onFocus} onBlur={onBlur}>
             Save
           </button>
           <button type='reset' className={styles.reset} onClick={edit}></button>
         </div>
       </Form>
+      )}
     </Formik>
   );
 };
